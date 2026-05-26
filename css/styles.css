@@ -1,0 +1,190 @@
+/* Reset e fonte */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #ecfef8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    color: White;
+    background-color: #004853;
+    border-radius: 2em;
+    padding: 4em 3em;
+}
+
+.title {
+    font-size: 3em;
+    font-weight: 800;
+}
+
+hr {
+    width: 100%;
+    background-color: black;
+    height: 5px;
+    border-radius: 1em;
+    border: none;
+}
+
+.timer {
+    font-size: 5em;
+    font-weight: 800;
+}
+
+.button-wrapper {
+    display: flex;
+    gap: 1em;
+}
+
+.button {
+    font-size: 2em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+button:hover {
+    transform: translateY(-10px);
+}
+
+#start { background-color: rgb(86,230,14);}
+#stop { background-color: rgb(246,25,25); }
+
+.circle-timer {
+    position: relative;
+    width: 220px;
+    height: 220px;
+}
+
+.circle-timer svg {
+    transform: rotate(-90deg);
+}
+
+.circle-timer circle {
+    fill: none;
+    stroke-width: 12;
+    r: 100;
+    cx: 110;
+    cy: 110;
+}
+
+.circle-timer .bg {
+    stroke: rgba(255, 255, 255, 0.2);
+}
+
+.circle-timer .progress {
+    stroke: white;
+    stroke-dasharray: 628;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear;
+}
+
+.circle-timer span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3.5em;
+    font-weight: 800;
+    color: white;
+}
+
+/* ===================== */
+/* FORMULÁRIO DE ATIVIDADE */
+/* ===================== */
+#atividade-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    width: 300px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#atividade-form select {
+    font-size: 1.5em;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    border: 2px solid white;
+    background-color: #004853;
+    color: white;
+    appearance: none;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+#atividade-form select:focus {
+    outline: none;
+    border-color: rgb(86,230,14);
+}
+
+#atividade-form button {
+    font-size: 1.5em;
+    font-weight: 700;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: rgb(30,144,255);
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    margin-top: 0.5em;
+}
+
+#atividade-form button:hover {
+    transform: translateY(-5px);
+    background-color: rgb(20,120,220);
+}
+
+/* ===================== */
+/* HISTÓRICO */
+/* ===================== */
+#historico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    text-align: center;
+}
+
+#historico h3 {
+    color: white;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+#historico ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+#historico li {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.5em 1em;
+    margin-bottom: 0.3em;
+    border-radius: 0.5em;
+    color: white;
+    font-size: 1.2em;
+    text-align: center;
+}

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Loja - Pausify</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        body {
+            background-color: #e0f2f1;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        main {
+            width: 100%;
+            max-width: 420px;
+            min-height: 100vh;
+            background-color: #e9f7f5;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 20px;
+            background-color: #e9f7f5;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .btn-back {
+            font-size: 24px;
+            color: #000;
+            text-decoration: none;
+            width: 40px;
+        }
+
+        .xp-badge {
+            background-color: #0a5c60;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .store-grid {
+            padding: 20px;
+            padding-bottom: 50px;
+        }
+
+        .product-card {
+            background-color: #165c60;
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 220px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .product-price {
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .btn-add {
+            background-color: #053b3e;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 0;
+            width: 100%;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: capitalize;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-add:hover {
+            background-color: #032b2d;
+        }
+
+        .btn-add:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .pontos-card {
+            background-color: #165c60;
+            border-radius: 20px;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            min-width: 180px;
+        }
+
+        .pontos-text {
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .pontos-text span {
+            font-weight: 700;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<main>
+    <div class="header-top">
+        <a href="my_room.html" class="btn-back">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+
+        <!-- CARD DE PONTUAÇÃO ESTILO PRODUTO -->
+        <div class="pontos-card">
+            <div class="pontos-text"><strong>PONTUAÇÃO:</strong> <span id="pontos">0</span> xp</div>
+        </div>
+
+        <div style="width: 40px;"></div>
+    </div>
+
+    <div class="store-grid">
+        <div class="row g-3">
+
+            <div class="col-6">
+                <div class="product-card">
+                    <div class="product-price">XP: 100</div>
+                    <img src="img/ui/objects/Wardrobe.png" class="product-img" alt="Roupeiro">
+                    <button id="btn_wardrobe" class="btn-add" onclick="comprarItem('btn_wardrobe', 100, 'roupeiro')">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="product-card">
+                    <div class="product-price">XP: 100</div>
+                    <img src="img/ui/objects/Bed.png" class="product-img" alt="Cama">
+                    <button id="btn_bed" class="btn-add" onclick="comprarItem('btn_bed', 100, 'cama')">Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="product-card">
+                    <div class="product-price">XP: 100</div>
+                    <img src="img/ui/objects/Desk.png" class="product-img" alt="Secretária">
+                    <button id="btn_desk" class="btn-add" onclick="comprarItem('btn_desk', 100, 'secretaria')">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="product-card">
+                    <div class="product-price">XP: 150</div>
+                    <img src="img/ui/objects/Computer.png" class="product-img" alt="Computador">
+                    <button id="btn_computer" class="btn-add" onclick="comprarItem('btn_computer', 150, 'computador')"
+                            disabled>
+                        <i class="bi bi-lock-fill"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="product-card">
+                    <div class="product-price">XP: 50</div>
+                    <img src="img/ui/objects/Rug.png" class="product-img" alt="Tapete">
+                    <button id="btn_rug" class="btn-add" onclick="comprarItem('btn_rug', 50, 'tapete')">Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="product-card">
+                    <div class="product-price">XP: 50</div>
+                    <img src="img/ui/objects/Plant.png" class="product-img" alt="Planta">
+                    <button id="btn_plant" class="btn-add" onclick="comprarItem('btn_plant', 50, 'planta')">Adicionar
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="roomgame_script.js"></script>
+</body>
+</html>

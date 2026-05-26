@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pausify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e9f7f5;
+            overflow: hidden;
+        }
+
+        #landing {
+            text-align: center;
+        }
+
+        .pause-icon {
+            display: inline-block;
+            position: relative;
+            width: 60px; /* largura total */
+            height: 120px; /* altura das barras */
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        .pause-icon::before,
+        .pause-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 20px; /* largura da barra */
+            height: 100%;
+            background-color: #0a5c60;
+        }
+
+        .pause-icon::before {
+            left: 0;
+        }
+
+        .pause-icon::after {
+            right: 0;
+        }
+
+        .logo-text {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0a5c60;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .btn-principal {
+            background-color: #0a5c60;
+            color: white;
+            border-radius: 30px;
+            padding: 12px 20px;
+            font-weight: bold;
+            border: none;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            font-size: 1rem;
+            opacity: 0;
+            margin-top: 20px;
+        }
+
+        .btn-principal:hover {
+            background-color: white;
+            color: #0a5c60;
+            transform: scale(1.05);
+        }
+
+        .fadeIn {
+            animation: fadeIn 0.8s forwards;
+        }
+
+        .scaleUp {
+            animation: scaleUp 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleUp {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="landing">
+    <div id="pauseIcon" class="pause-icon"></div>
+    <div id="logoText" class="logo-text mt-3">PAUSIFY</div>
+    <button id="btnCreate" class="btn-principal">Criar Conta</button>
+</div>
+
+<script>
+    const pauseIcon = document.getElementById('pauseIcon');
+    const logoText = document.getElementById('logoText');
+    const btnCreate = document.getElementById('btnCreate');
+
+
+    logoText.style.display = 'none';
+    btnCreate.style.display = 'none';
+
+
+    setTimeout(() => {
+        pauseIcon.style.opacity = 0;
+        pauseIcon.style.transition = 'opacity 0.5s';
+        setTimeout(() => {
+            pauseIcon.style.display = 'none';
+            logoText.style.display = 'block';
+            btnCreate.style.display = 'inline-block';
+            logoText.classList.add('scaleUp');
+            btnCreate.classList.add('fadeIn');
+        }, 500);
+    }, 1200);
+
+    btnCreate.onclick = () => {
+        window.location.href = 'registo.html';
+    };
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

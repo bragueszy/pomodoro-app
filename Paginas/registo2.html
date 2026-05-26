@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criar Conta</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #e9f7f5;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+        }
+
+        main {
+            max-width: 420px;
+            margin: auto;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            border-radius: 25px;
+            border: 1px solid #0a5c60;
+        }
+
+        .titulo {
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #0a5c60;
+        }
+
+        .form-control {
+            border-radius: 30px;
+            text-align: center;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #0a5c60;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #0a5c60;
+        }
+
+        .btn-principal {
+            background-color: #0a5c60;
+            color: white;
+            border-radius: 30px;
+            padding: 12px;
+            font-weight: bold;
+            border: 2px solid white;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .btn-principal:hover {
+            background-color: white;
+            color: #0a5c60;
+            border-color: #0a5c60;
+        }
+
+        .link-login {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .link-login a {
+            color: #0a5c60;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .link-login a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<main>
+    <div class="card shadow p-4">
+
+        <h4 class="titulo">Criar Conta</h4>
+
+
+        <label class="form-label text-center w-100 fw-bold">Username</label>
+        <input type="text" id="user" class="form-control" placeholder="Inserir username">
+
+
+        <label class="form-label text-center w-100 fw-bold">Password</label>
+        <input type="password" id="pass" class="form-control" placeholder="Inserir password">
+
+
+        <div class="d-grid mt-4">
+            <button class="btn-principal" id="btnCriar">
+                CRIAR CONTA
+            </button>
+        </div>
+
+
+        <div class="link-login">
+            <span>Já tens conta? </span>
+            <a href="login.html">Fazer login</a>
+        </div>
+
+    </div>
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vind@</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9f7f5;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+        }
+
+        main {
+            max-width: 420px;
+            margin: auto;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100%;
+            border-radius: 25px;
+            border: 1px solid #0a5c60;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .titulo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0a5c60;
+            margin-bottom: 20px;
+        }
+
+        .mensagem {
+            font-size: 1.2rem;
+            color: #0a5c60;
+            margin-bottom: 30px;
+        }
+
+        .btn-principal {
+            background-color: #0a5c60;
+            color: white;
+            border-radius: 30px;
+            padding: 12px;
+            font-weight: bold;
+            border: 2px solid white;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        .btn-principal:hover {
+            background-color: white;
+            color: #0a5c60;
+            border-color: #0a5c60;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="card shadow">
+        <div class="titulo">Bem-vind@!</div>
+        <div class="mensagem" id="mensagemUser"></div>
+        <button class="btn-principal" onclick="seguirParaCheckin()">Continuar</button>
+    </div>
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const userLogado = JSON.parse(localStorage.getItem("userLogado"));
+        if (!userLogado) {
+            window.location.href = "login.html";
+            return;
+        }
+        document.getElementById("mensagemUser").textContent = `Olá, ${userLogado.username}!`;
+    });
+
+    function seguirParaCheckin() {
+        window.location.href = "checkin.html";
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

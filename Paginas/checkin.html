@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Check-in Diário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #e9f7f5;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+        }
+
+        main {
+            max-width: 420px;
+            margin: auto;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            border-radius: 25px;
+            border: 1px solid #0a5c60;
+        }
+
+        .titulo {
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #0a5c60;
+        }
+
+        .mood-btn {
+            font-size: 24px;
+            border-radius: 100%;
+            width: 44px;
+            height: 44px;
+            border: 1px solid #0a5c60;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s, color 0.2s;
+        }
+
+        .mood-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .mood-btn.selected {
+            background-color: #0a5c60;
+            color: white;
+        }
+
+        .btn-principal {
+            background-color: #0a5c60;
+            color: white;
+            border-radius: 30px;
+            padding: 12px;
+            font-weight: bold;
+            border: 2px solid white;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .btn-principal:hover {
+            background-color: white;
+            color: #0a5c60;
+            border-color: #0a5c60;
+        }
+
+        .nota {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #b02a37;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <div class="card shadow p-4" id="card">
+        <h4 class="titulo">Check-in Diário</h4>
+
+        <label class="form-label text-center w-100 fw-bold mb-3">
+            Como te sentes hoje?
+        </label>
+
+        <div class="d-flex justify-content-center gap-3 mb-2">
+            <button type="button" class="mood-btn" data-mood="muito_mal">😡</button>
+            <button type="button" class="mood-btn" data-mood="mal">😞</button>
+            <button type="button" class="mood-btn" data-mood="normal">😐</button>
+            <button type="button" class="mood-btn" data-mood="bem">🙂</button>
+            <button type="button" class="mood-btn" data-mood="muito_bem">😄</button>
+        </div>
+
+        <div class="nota" id="nota">
+            Por favor seleciona um estado de espírito antes de submeter.
+        </div>
+
+        <div class="d-grid mt-4">
+            <button id="submitBtn" class="btn-principal">
+                SUBMETER
+            </button>
+        </div>
+    </div>
+</main>
+
+<script>
+    let selectedMood = null;
+    const nota = document.getElementById('nota');
+    const card = document.getElementById('card');
+
+    const moodButtons = document.querySelectorAll('.mood-btn');
+
+    moodButtons.forEach(btn => {
+        btn.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            moodButtons.forEach(b => b.classList.remove('selected'));
+
+            if (selectedMood === btn.dataset.mood) {
+                selectedMood = null;
+            } else {
+                selectedMood = btn.dataset.mood;
+                btn.classList.add('selected');
+            }
+            nota.style.display = 'none';
+        });
+    });
+
+
+    document.body.addEventListener('click', function (event) {
+        if (!card.contains(event.target)) {
+            selectedMood = null;
+            moodButtons.forEach(b => b.classList.remove('selected'));
+        }
+    });
+
+
+    document.getElementById('submitBtn').addEventListener('click', function () {
+        if (!selectedMood) {
+            nota.style.display = 'block';
+            return;
+        }
+        const today = new Date().toISOString().split('T')[0];
+        localStorage.setItem('dailyCheckin', JSON.stringify({mood: selectedMood, date: today}));
+        window.location.href = 'ferramentas.html';
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ferramentas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #e9f7f5;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+        }
+
+        main {
+            max-width: 420px;
+            margin: auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        h4 {
+            color: #0a5c60;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            width: 100%;
+            border-radius: 25px;
+            border: 1px solid #0a5c60;
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #0a5c60;
+        }
+
+        .card-text {
+            margin-bottom: 10px;
+        }
+
+        .btn-principal {
+            background-color: #0a5c60;
+            color: white;
+            border-radius: 30px;
+            padding: 10px;
+            font-weight: bold;
+            border: 2px solid white;
+            transition: 0.2s;
+            margin-top: 10px;
+            text-align: center;
+            display: block;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .btn-principal:hover {
+            background-color: white;
+            color: #0a5c60;
+            border-color: #0a5c60;
+        }
+
+        /* POPUP */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #popup {
+            background: #0a5c60;
+            color: white;
+            padding: 25px 30px;
+            border-radius: 20px;
+            font-weight: bold;
+            min-width: 260px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+<main>
+    <h4>Sugestões para o teu estado de espírito</h4>
+    <div id="cardContainer"></div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <a href="pomodoro.html" class="btn-principal">Continuar</a>
+    </div>
+</main>
+
+<!-- POPUP -->
+<div id="overlay">
+    <div id="popup"></div>
+</div>
+
+<script src="../js/estadoespirito.js"></script>
+
+<script>
+/* FUNÇÃO POPUP (substitui TODOS os alert) */
+function mostrarPopup(mensagem, redirecionarPara = null, tempo = 2500) {
+    const overlay = document.getElementById("overlay");
+    const popup = document.getElementById("popup");
+
+    popup.textContent = mensagem;
+    overlay.style.display = "flex";
+
+    setTimeout(() => {
+        overlay.style.display = "none";
+
+        if (redirecionarPara) {
+            window.location.href = redirecionarPara;
+        }
+    }, tempo);
+}
+
+/* CÓDIGO PRINCIPAL */
+(function() {
+
+    var dailyCheckin = JSON.parse(localStorage.getItem("dailyCheckin"));
+
+    /* ALERT REMOVIDO */
+    if (!dailyCheckin) {
+        mostrarPopup("Não foi feito check-in ainda!", "checkin.html");
+        return;
+    }
+
+    var mood = dailyCheckin.mood;
+    var moodSuggestions = moodsData[mood];
+    var container = document.getElementById("cardContainer");
+
+    function getRandomSuggestions(arr, count = 3) {
+        var cloned = arr.slice();
+        var result = [];
+
+        for (var i = 0; i < count && cloned.length > 0; i++) {
+            var idx = Math.floor(Math.random() * cloned.length);
+            result.push(cloned[idx]);
+            cloned.splice(idx, 1);
+        }
+        return result;
+    }
+
+    var suggestions = getRandomSuggestions(moodSuggestions, 3);
+
+    for (var i = 0; i < suggestions.length; i++) {
+        var s = suggestions[i];
+
+        var card = document.createElement("div");
+        card.className = "card shadow mb-3";
+
+        var title = document.createElement("div");
+        title.className = "card-title";
+        title.textContent = s.emoji + " Sugestão";
+        card.appendChild(title);
+
+        var text = document.createElement("div");
+        text.className = "card-text";
+        text.textContent = s.text;
+        card.appendChild(text);
+
+        if (s.url) {
+            var iframe = document.createElement("iframe");
+            iframe.src = s.url.replace("watch?v=", "embed/");
+            iframe.style.width = "100%";
+            iframe.style.height = "200px";
+            iframe.style.borderRadius = "15px";
+            iframe.style.border = "none";
+            card.appendChild(iframe);
+        }
+
+        if (s.gif) {
+            var img = document.createElement("img");
+            img.src = s.gif;
+            img.style.width = "100%";
+            img.style.borderRadius = "15px";
+            img.style.marginTop = "10px";
+            card.appendChild(img);
+        }
+
+        container.appendChild(card);
+    }
+
+})();
+</script>
+
+</body>
+</html>

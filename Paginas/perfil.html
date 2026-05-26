@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pausify - Perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <style>
+        body {
+            background-color: #e0f2f1;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-top {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        header h2 {
+            font-weight: 700;
+            color: #0a5c60;
+        }
+
+        header .bi-arrow-left {
+            position: absolute;
+            left: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #0a5c60;
+        }
+
+        #dadosperfil {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+        }
+
+        #avatarPerfil {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0a5c60;
+            margin-bottom: 10px;
+        }
+
+        #nomeUtilizador {
+            font-weight: 700;
+            color: #0a5c60;
+        }
+
+        #username {
+            color: #0a5c60;
+            font-weight: 500;
+        }
+
+        #biografia {
+            text-align: center;
+            color: #333;
+            margin: 10px 20px;
+        }
+
+        .botao-perfil {
+            padding: 10px 25px;
+            font-weight: bold;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .botaoverde {
+            background-color: #0a5c60;
+            color: white;
+        }
+
+        .botaoverde:hover {
+            background-color: #ffffff;
+            color: #0a5c60;
+            border: 2px solid #0a5c60;
+        }
+
+        .botaoterminar {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .botaoterminar:hover {
+            background-color: #ffffff;
+            color: #dc3545;
+            border: 2px solid #dc3545;
+        }
+
+        .botoes-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        #navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 400px) {
+            .botao-perfil {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        .header-top {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .btn-back {
+            position: absolute;
+            left: 20px;
+            font-size: 24px;
+            color: #0a5c60;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0a5c60;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header-top">
+    <a href="javascript:history.back()" class="btn-back"><i class="bi bi-arrow-left"></i></a>
+    <div class="page-title">Perfil</div>
+</div>
+
+<div id="dadosperfil" class="d-flex flex-column align-items-center">
+    <img id="avatarPerfil" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Avatar">
+    <h1 id="nomeUtilizador">Nome Completo</h1>
+    <h3 id="username" class="textoverde">@username</h3>
+    <p id="biografia">Biografia do utilizador...</p>
+
+    <div class="botoes-container">
+        <a href="editarperfil.html">
+            <button class="botao-perfil botaoverde">Editar Perfil</button>
+        </a>
+        <button id="btnLogout" class="botao-perfil botaoterminar">Terminar Sessão</button>
+    </div>
+</div>
+
+<div id="navbar"></div>
+
+<script src="/js/navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        const elNome = document.getElementById("nomeUtilizador");
+        const elUsername = document.getElementById("username");
+        const elBio = document.getElementById("biografia");
+        const elAvatar = document.getElementById("avatarPerfil");
+        const btnLogout = document.getElementById("btnLogout");
+
+        if (!elNome || !elUsername || !elBio || !elAvatar || !btnLogout) return;
+
+        let userLogado = null;
+        try {
+            userLogado = JSON.parse(localStorage.getItem("userLogado"));
+        } catch(e) { userLogado = null; }
+
+        if (!userLogado || (!userLogado.username && !userLogado.login)) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const loginAtual = userLogado.login || userLogado.username;
+
+        let utilizadoresLS = JSON.parse(localStorage.getItem("utilizadores")) || [];
+
+
+        const admin = { login: "admin", pass: "admin", nome: "Admin", apelido: "", avatar: null, bio: "" };
+        if (!utilizadoresLS.some(u => u.login === "admin")) {
+            utilizadoresLS.push(admin);
+        }
+
+        const u = utilizadoresLS.find(u => u.login === loginAtual);
+
+        if (u) {
+            elNome.textContent = (u.nome || "") + " " + (u.apelido || "");
+            elUsername.textContent = "@" + u.login;
+            elBio.textContent = u.bio || "Este utilizador ainda não adicionou uma biografia.";
+            elAvatar.src = u.avatar || "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+        }
+
+        btnLogout.addEventListener("click", () => {
+            localStorage.removeItem("userLogado");
+            window.location.href = "login.html";
+        });
+    });
+</script>
+</body>
+</html>

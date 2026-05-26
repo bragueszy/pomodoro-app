@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>O meu quarto - Pausify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/estilos.css">
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            max-width: 480px;
+            width: 100%;
+            min-height: 100vh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            box-shadow: none;
+            overflow-x: hidden;
+            padding: 20px 0;
+        }
+
+        .header-top {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .btn-back {
+            position: absolute;
+            left: 20px;
+            font-size: 24px;
+            color: #0a5c60;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0a5c60;
+            text-align: center;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            width: 90%;
+            max-width: 360px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card .pontos {
+            font-size: 1rem;
+            color: #0a5c60;
+            font-weight: 600;
+        }
+
+        .card .pontos span {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .room-display {
+            position: relative;
+            width: 90%;
+            max-width: 360px;
+            aspect-ratio: 1.05;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .room-base {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            z-index: 1;
+        }
+
+        .room-object {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: auto;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 2;
+            display: none;
+        }
+
+        .controls-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s;
+            background: 0 0;
+            border: none;
+        }
+
+        .action-btn img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 400px) {
+            .page-title {
+                font-size: 1.2rem;
+            }
+
+            .card .pontos {
+                font-size: 0.9rem;
+            }
+
+            .card .pontos span {
+                font-size: 1rem;
+            }
+
+            .action-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .room-display {
+                width: 95%;
+                max-width: 300px;
+            }
+
+            .room-object {
+                width: 85%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<main>
+    <!-- HEADER -->
+    <div class="header-top">
+        <a href="javascript:history.back()" class="btn-back"><i class="bi bi-arrow-left"></i></a>
+        <div class="page-title">O meu quarto</div>
+    </div>
+
+    <!-- CARD DE PONTUAÇÃO -->
+    <div class="card">
+        <div class="pontos"><strong>PONTUAÇÃO:</strong> <span id="pontos">0</span> xp</div>
+    </div>
+
+    <!-- ROOM -->
+    <div class="room-display">
+        <img src="img/room/room_structure.png" class="room-base" alt="Quarto Vazio">
+        <img src="img/room/rug.png" id="item-rug" class="room-object" alt="Tapete">
+        <img src="img/room/plant.png" id="item-plant" class="room-object" alt="Planta">
+        <img src="img/room/wardrobe.png" id="item-wardrobe" class="room-object" alt="Roupeiro">
+        <img src="img/room/bed.png" id="item-bed" class="room-object" alt="Cama">
+        <img src="img/room/desk.png" id="item-desk" class="room-object" alt="Secretária">
+        <img src="img/room/computer.png" id="item-computer" class="room-object" alt="Computador">
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls-container">
+        <a href="store.html" class="action-btn">
+            <img src="img/ui/buttons/Store_Icon.png" alt="Ir para a Loja">
+        </a>
+    </div>
+</main>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+<script src="/js/navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="roomgame_script.js"></script>
+</body>
+</html>

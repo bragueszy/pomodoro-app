@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Som - Pausify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #e9f7f5;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            max-width: 420px;
+            margin: auto;
+            min-height: 100vh;
+            background-color: #e9f7f5;
+            padding-bottom: 80px;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .btn-back {
+            position: absolute;
+            left: 15px;
+            font-size: 1.5rem;
+            color: #0a5c60;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            color: #0a5c60;
+            text-align: center;
+        }
+
+        .volume-control {
+            margin: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .volume-control span {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #0a5c60;
+            font-size: 1rem;
+        }
+
+        .form-range {
+            width: 100%;
+        }
+
+        .form-range::-webkit-slider-thumb {
+            background-color: #0a5c60;
+        }
+
+        .form-range::-moz-range-thumb {
+            background-color: #0a5c60;
+        }
+
+        .volume-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 0.9rem;
+            color: #0a5c60;
+            margin-top: 5px;
+        }
+
+        .btn-toggle-sound {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #0a5c60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .btn-toggle-sound.off {
+            background-color: #bbb;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="header-top">
+        <a href="definicoes.html" class="btn-back"><i class="bi bi-arrow-left"></i></a>
+        <div class="page-title">Som</div>
+    </div>
+
+    <div class="volume-control" id="volumeControl">
+        <button class="btn-toggle-sound" id="btnSound"><i class="bi bi-volume-up-fill"></i> Som Ligado</button>
+        <span>Volume do dispositivo</span>
+        <input type="range" class="form-range" id="volumeSlider" min="0" max="100" value="50">
+        <div class="volume-labels">
+            <span>0%</span>
+            <span>50%</span>
+            <span>100%</span>
+        </div>
+    </div>
+</main>
+
+<script>
+    const volumeSlider = document.getElementById('volumeSlider');
+    const btnSound = document.getElementById('btnSound');
+    const volumeControl = document.getElementById('volumeControl');
+
+
+    let volumeSalvo = localStorage.getItem('volumePausify') || 50;
+    volumeSlider.value = volumeSalvo;
+
+
+    let somLigado = localStorage.getItem('somLigado');
+    if (somLigado === null) somLigado = true;
+    else somLigado = somLigado === 'true';
+
+    function atualizarInterface() {
+        if (somLigado) {
+            btnSound.classList.remove('off');
+            btnSound.innerHTML = '<i class="bi bi-volume-up-fill"></i> Som Ligado';
+            volumeSlider.style.display = 'block';
+            volumeSlider.previousElementSibling.style.display = 'block';
+            volumeSlider.nextElementSibling.style.display = 'flex';
+        } else {
+            btnSound.classList.add('off');
+            btnSound.innerHTML = '<i class="bi bi-volume-mute-fill"></i> Som Desligado';
+            volumeSlider.style.display = 'none';
+            volumeSlider.previousElementSibling.style.display = 'none';
+            volumeSlider.nextElementSibling.style.display = 'none';
+        }
+    }
+
+    atualizarInterface();
+
+    btnSound.addEventListener('click', () => {
+        somLigado = !somLigado;
+        localStorage.setItem('somLigado', somLigado);
+        atualizarInterface();
+        console.log("Som " + (somLigado ? "ligado" : "desligado"));
+    });
+
+    volumeSlider.addEventListener('input', () => {
+        if (somLigado) {
+            const volume = volumeSlider.value;
+            localStorage.setItem('volumePausify', volume);
+            console.log("Volume ajustado para: " + volume + "%");
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
